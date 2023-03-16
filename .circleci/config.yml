@@ -54,7 +54,17 @@ jobs:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               echo "# go Hello Pokus unit tests!"
 
@@ -64,7 +74,17 @@ jobs:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               echo "# go Build Hello Pokus !"
 
@@ -74,7 +94,17 @@ jobs:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               echo "# go Hello Pokus e2e tests!"
 
@@ -84,7 +114,17 @@ jobs:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               go run .
 
@@ -96,7 +136,17 @@ jobs:
       GOPKG_AUTH_SECRET_USER: << pipeline.parameters.gopkg_auth_secret_user >>
       GOPKG_AUTH_SECRET_PWD: << pipeline.parameters.gopkg_auth_secret_pwd >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               echo "# Publish go Module!"
   docker_build_hello_pokus:
@@ -105,7 +155,17 @@ jobs:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
-      <<: *pokus-common-steps
+      # <<: *pokus-common-steps
+      - run: 
+          name: "Env setup"
+          script: |
+                    echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+                    echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run: 
+          name: project_switch
+          script: |
+                    cd ${POKUS_PRJ_DIR}
       - run: | 
               echo "# Build Hello Pokus Docker Image !"
               export OCI_REG_HOST=<< parameters.oci_gun_registry >>

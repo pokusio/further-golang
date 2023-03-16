@@ -64,3 +64,4 @@ curl -X POST \
 ## References
 
 * https://circleci.com/docs/env-vars/
+* https://circleci.com/docs/api/v2/index.html#operation/triggerPipeline
