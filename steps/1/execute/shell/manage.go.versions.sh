@@ -47,3 +47,11 @@ go1.10.7 env GOPATH
 
 go1.18.3 env GOROOT
 go1.18.3 env GOPATH
+
+
+echo "# Golang version $(go version)" | tee -a ${HOME}/.profile
+echo 'export PATH="$PATH:$(go env GOPATH)/bin"' | tee -a ${HOME}/.profile
+echo "# Golang version $(go1.10.7 version)" | tee -a ${HOME}/.profile
+echo 'export PATH="$PATH:$(go1.10.7 env GOPATH)/bin"' | tee -a ${HOME}/.profile
+echo "# Golang version $(go1.18.3 version)" | tee -a ${HOME}/.profile
+echo 'export PATH="$PATH:$(go1.18.3 env GOPATH)/bin"' | tee -a ${HOME}/.profile
