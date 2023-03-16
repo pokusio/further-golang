@@ -33,7 +33,7 @@ x-pokus-jobs-common: &pokus-jobs-common
       # auth:
       #   username: mydockerhub-user
       #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-  shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
 
 x-pokus-common-steps: &pokus-common-steps
   - run: 
@@ -52,7 +52,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -75,7 +75,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -98,7 +98,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -121,7 +121,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -144,7 +144,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -168,7 +168,7 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-    shell: /bin/sh -leo pipefail
+      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
