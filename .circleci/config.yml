@@ -214,7 +214,6 @@ jobs:
               export OCI_IMG_FULL_GUN=${OCI_REG_HOST}/${OCI_IMG_ORG}/${OCI_IMG_PRJ}:${OCI_IMG_TAG}
               echo " Will docker push [${OCI_IMG_FULL_GUN}]"
 workflows:
-  version: "2"
   hello_pokus_gomod_ci:
     jobs:
       - unit_test_hello_pokus
