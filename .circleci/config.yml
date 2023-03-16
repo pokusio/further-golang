@@ -24,6 +24,7 @@ parameters:
   dockerhub_auth_secret_pwd:
     type: string
     default: "pokus"
+
 # Settings and configurations that are common for all jobs
 x-pokus-jobs-common: &pokus-jobs-common
   docker:
@@ -49,7 +50,10 @@ x-pokus-common-steps: &pokus-common-steps
 
 jobs:
   unit_test_hello_pokus:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -69,7 +73,10 @@ jobs:
               echo "# go Hello Pokus unit tests!"
 
   build_hello_pokus:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -89,7 +96,10 @@ jobs:
               echo "# go Build Hello Pokus !"
 
   e2e_test_hello_pokus:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -109,7 +119,10 @@ jobs:
               echo "# go Hello Pokus e2e tests!"
 
   run_hello_pokus:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -129,7 +142,10 @@ jobs:
               go run .
 
   publish_hello_pokus_gomod:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -150,7 +166,10 @@ jobs:
       - run: | 
               echo "# Publish go Module!"
   docker_build_hello_pokus:
-    <<: *pokus-jobs-common
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+    shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
