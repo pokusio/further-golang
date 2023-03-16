@@ -219,10 +219,10 @@ workflows:
   hello_pokus_gomod_ci:
     jobs:
       - unit_test_hello_pokus
-      - build_hello_pokus
-      - e2e_test_hello_pokus
-      - run_hello_pokus
-      - publish_hello_pokus_gomod
+      # - build_hello_pokus
+      # - e2e_test_hello_pokus
+      # - run_hello_pokus
+      # - publish_hello_pokus_gomod
       - build_hello_pokus:
           requires:
             - unit_test_hello_pokus
