@@ -220,38 +220,38 @@ workflows:
     jobs:
       - unit_test_hello_pokus:
       - build_hello_pokus:
-        requires:
-          - unit_test_hello_pokus
+          requires:
+            - unit_test_hello_pokus
       - e2e_test_hello_pokus:
-        requires:
-          - build_hello_pokus
+          requires:
+            - build_hello_pokus
       - run_hello_pokus:
-        requires:
-          - e2e_test_hello_pokus
+          requires:
+            - e2e_test_hello_pokus
       - approve_publish_gomod: # <<< A job that will require manual approval in the CircleCI web application.
-        type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
-        requires:
-          - e2e_test_hello_pokus
+          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+          requires:
+            - e2e_test_hello_pokus
       - publish_hello_pokus_gomod:
-        requires:
-          - approve_publish_gomod
+          requires:
+            - approve_publish_gomod
 
   hello_pokus_containers_ci:
     when: << pipeline.parameters.dockerize_me >> 
     jobs:
       - docker_build_hello_pokus:
-        oci_gun_registry: docker.io
-        oci_gun_org: pokusio.io
-        oci_gun_project: go-hello-pokus
-        oci_gun_tag: 0.0.1
+          oci_gun_registry: docker.io
+          oci_gun_org: pokusio.io
+          oci_gun_project: go-hello-pokus
+          oci_gun_tag: 0.0.1
       - approve_docker_push: # <<< A job that will require manual approval in the CircleCI web application.
-        type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
-        requires:
-          - docker_build_hello_pokus
+          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+          requires:
+            - docker_build_hello_pokus
       - docker_push_hello_pokus:
-        requires:
-          - approve_docker_push
-        oci_gun_registry: docker.io
-        oci_gun_org: pokusio.io
-        oci_gun_project: go-hello-pokus
-        oci_gun_tag: 0.0.1
+          oci_gun_registry: docker.io
+          oci_gun_org: pokusio.io
+          oci_gun_project: go-hello-pokus
+          oci_gun_tag: 0.0.1
+          requires:
+            - approve_docker_push
