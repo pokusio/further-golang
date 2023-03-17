@@ -38,6 +38,7 @@ jobs:
       - run:
           name: "env setup"
           command: |
+              touch "$BASH_ENV"
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
@@ -62,6 +63,7 @@ jobs:
       - run:
           name: "env setup"
           command: |
+              touch "$BASH_ENV"
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
