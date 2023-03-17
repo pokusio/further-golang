@@ -30,7 +30,6 @@ jobs:
     # <<: *pokus-jobs-common
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-      # - shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
@@ -54,7 +53,6 @@ jobs:
     # <<: *pokus-jobs-common
     executor:
       name: cimg/go:<< pipeline.parameters.pokus_go_version >>
-      shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
