@@ -79,6 +79,139 @@ jobs:
           name: "Build"
           command: | 
               echo "# go Build Hello Pokus !"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  e2e_test_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /home/circleci/.profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "E2e tests"
+          command: | 
+              echo "# go Hello Pokus e2e tests!"
+
+  run_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /home/circleci/.profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env Setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Run Pokus Hello"
+          command: | 
+              go run .
+
+  publish_hello_pokus_gomod:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /home/circleci/.profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+      GOPKG_AUTH_SECRET_USER: << pipeline.parameters.gopkg_auth_secret_user >>
+      GOPKG_AUTH_SECRET_PWD: << pipeline.parameters.gopkg_auth_secret_pwd >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env Setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Publish Golang Module to gopkg.io"
+          command: | 
+              echo "# Publish go Module!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   docker_build_hello_pokus:
     # <<: *pokus-jobs-common
     parameters:
@@ -162,6 +295,20 @@ workflows:
       - build_hello_pokus:
           requires:
             - unit_test_hello_pokus
+      - e2e_test_hello_pokus:
+          requires:
+            - build_hello_pokus
+      - run_hello_pokus:
+          requires:
+            - e2e_test_hello_pokus
+      - approve_publish_gomod: # <<< A job that will require manual approval in the CircleCI web application.
+          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+          requires:
+            - e2e_test_hello_pokus
+      - publish_hello_pokus_gomod:
+          requires:
+            - approve_publish_gomod
+
 
   hello_pokus_containers_ci:
     when: << pipeline.parameters.dockerize_me >> 
