@@ -128,6 +128,7 @@ jobs:
       - run:
           name: "Run Pokus Hello"
           command: | 
+              cd ${POKUS_PRJ_DIR}
               go run .
 
   publish_hello_pokus_gomod:
