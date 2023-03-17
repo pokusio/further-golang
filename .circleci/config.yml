@@ -24,18 +24,6 @@ parameters:
     type: string
     default: "pokus"
 
-# Settings and configurations that are common for all jobs
-x-pokus-jobs-common: &pokus-jobs-common
-  docker:
-    - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-      # ---
-      # That's for authenticating against docker hub, if required to pull container image
-      # auth:
-      #   username: mydockerhub-user
-      #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-      # - shell: /bin/sh -leo pipefail
-
-
 
 jobs:
   unit_test_hello_pokus:
