@@ -48,13 +48,19 @@ jobs:
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "env setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "switch to prj folder"
+          command: |
               cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "run unit tests"
+          command: | 
               echo "# go Hello Pokus unit tests!"
 
   build_hello_pokus:
@@ -67,13 +73,19 @@ jobs:
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "env setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "Switch project folder"
+          command: |
               cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "Build"
+          command: | 
               echo "# go Build Hello Pokus !"
 
   e2e_test_hello_pokus:
@@ -86,13 +98,19 @@ jobs:
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "Env setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "Switch project folder"
+          command: |
               cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "E2e tests"
+          command: | 
               echo "# go Hello Pokus e2e tests!"
 
   run_hello_pokus:
@@ -105,13 +123,19 @@ jobs:
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "Env Setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "Switch project folder"
+          command: |
               cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "Run Pokus Hello"
+          command: | 
               go run .
 
   publish_hello_pokus_gomod:
@@ -126,13 +150,19 @@ jobs:
       GOPKG_AUTH_SECRET_PWD: << pipeline.parameters.gopkg_auth_secret_pwd >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "Env Setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "Switch project folder"
+          command: |
               cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "Publish Golang Module to gopkg.io"
+          command: | 
               echo "# Publish go Module!"
   docker_build_hello_pokus:
     # <<: *pokus-jobs-common
@@ -144,13 +174,19 @@ jobs:
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
-      - run: |
+      - run:
+          name: "Env Setup"
+          command: |
               echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
               echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
-      - run: |
+      - run:
+          name: "Switch project folder"
+          command: |
                   cd ${POKUS_PRJ_DIR}
-      - run: | 
+      - run:
+          name: "Build Hello Pokus Docker Image"
+          command: | 
               echo "# Build Hello Pokus Docker Image !"
               export OCI_REG_HOST=<< parameters.oci_gun_registry >>
               export OCI_IMG_ORG=<< parameters.oci_gun_org >>
@@ -172,7 +208,9 @@ jobs:
       DOCKERHUB_AUTH_SECRET_PWD: << pipeline.parameters.dockerhub_auth_secret_pwd >>
     steps:
       - checkout
-      - run: | 
+      - run:
+          name: "Docker Push Pokus Hello Container Image"
+          command: | 
               echo "# Publish Hello Pokus Docker Image !"
               export OCI_REG_HOST=<< parameters.oci_gun_registry >>
               export OCI_IMG_ORG=<< parameters.oci_gun_org >>
@@ -180,7 +218,6 @@ jobs:
               export OCI_IMG_TAG=<< parameters.oci_gun_tag >>
               export OCI_IMG_FULL_GUN=${OCI_REG_HOST}/${OCI_IMG_ORG}/${OCI_IMG_PRJ}:${OCI_IMG_TAG}
               echo " Will docker push [${OCI_IMG_FULL_GUN}]"
-
 
 workflows:
   hello_pokus_gomod_ci:
