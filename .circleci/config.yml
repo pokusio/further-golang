@@ -73,19 +73,19 @@ jobs:
     steps:
       # <<: *pokus-common-steps
       - run:
-          name: "env setup"
-          command: |
-              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
-              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+        name: "env setup"
+        command: |
+            echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+            echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
       - checkout
       - run:
-          name: "Switch project folder"
-          command: |
-              cd ${POKUS_PRJ_DIR}
+        name: "Switch project folder"
+        command: |
+            cd ${POKUS_PRJ_DIR}
       - run:
-          name: "Build"
-          command: | 
-              echo "# go Build Hello Pokus !"
+        name: "Build"
+        command: | 
+            echo "# go Build Hello Pokus !"
 
 workflows:
   hello_pokus_gomod_ci:
