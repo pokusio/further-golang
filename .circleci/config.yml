@@ -4,7 +4,7 @@ version: "2.1"
 parameters:
   dockerize_me:
     type: boolean
-    default: true
+    default: false
   pokus_go_version:
     type: string
     default: "1.18.3"
