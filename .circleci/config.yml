@@ -76,10 +76,14 @@ jobs:
   docker_build_hello_pokus:
     # <<: *pokus-jobs-common
     parameters:
-      oci_gun_registry: docker.io
-      oci_gun_org: pokusio.io
-      oci_gun_project: go-hello-pokus
-      oci_gun_tag: 0.0.1
+      oci_gun_registry:
+        type: string
+      oci_gun_org:
+        type: string
+      oci_gun_project:
+        type: string
+      oci_gun_tag:
+        type: string
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
       # - shell: /bin/sh -leo pipefail
@@ -112,10 +116,14 @@ jobs:
   docker_push_hello_pokus:
     # <<: *pokus-jobs-common
     parameters:
-      oci_gun_registry: docker.io
-      oci_gun_org: pokusio.io
-      oci_gun_project: go-hello-pokus
-      oci_gun_tag: 0.0.1
+      oci_gun_registry:
+        type: string
+      oci_gun_org:
+        type: string
+      oci_gun_project:
+        type: string
+      oci_gun_tag:
+        type: string
     docker:
       - image: cimg/go:$POKUS_GO_VERSION
         # auth:
