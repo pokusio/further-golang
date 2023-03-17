@@ -75,6 +75,11 @@ jobs:
               echo "# go Build Hello Pokus !"
   docker_build_hello_pokus:
     # <<: *pokus-jobs-common
+    parameters:
+      oci_gun_registry: docker.io
+      oci_gun_org: pokusio.io
+      oci_gun_project: go-hello-pokus
+      oci_gun_tag: 0.0.1
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
       # - shell: /bin/sh -leo pipefail
@@ -105,6 +110,12 @@ jobs:
               echo " Will docker build [${OCI_IMG_FULL_GUN}]"
 
   docker_push_hello_pokus:
+    # <<: *pokus-jobs-common
+    parameters:
+      oci_gun_registry: docker.io
+      oci_gun_org: pokusio.io
+      oci_gun_project: go-hello-pokus
+      oci_gun_tag: 0.0.1
     docker:
       - image: cimg/go:$POKUS_GO_VERSION
         # auth:
