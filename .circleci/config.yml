@@ -77,7 +77,7 @@ jobs:
 workflows:
   version: 2
   when: 
-    - if: <<pipeline.parameters.dockerize_me>> 
+    if: <<pipeline.parameters.dockerize_me>> 
   hello_pokus_gomod_ci:
     jobs:
       - unit_test_hello_pokus
