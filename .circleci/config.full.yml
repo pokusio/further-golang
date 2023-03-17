@@ -1,0 +1,261 @@
+
+version: "2.1"
+
+parameters:
+  dockerize_me:
+    type: boolean
+    default: false
+  pokus_go_version:
+    type: string
+    default: "1.18.3"
+  project_folder:
+    type: string
+    default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
+  gopkg_auth_secret_user:
+    type: string
+    default: "pokus"
+  gopkg_auth_secret_pwd:
+    type: string
+    default: "pokus"
+  dockerhub_auth_secret_user:
+    type: string
+    default: "pokus"
+  dockerhub_auth_secret_pwd:
+    type: string
+    default: "pokus"
+
+# Settings and configurations that are common for all jobs
+x-pokus-jobs-common: &pokus-jobs-common
+  docker:
+    - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # ---
+      # That's for authenticating against docker hub, if required to pull container image
+      # auth:
+      #   username: mydockerhub-user
+      #   password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+      # - shell: /bin/sh -leo pipefail
+
+
+
+jobs:
+  unit_test_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "env setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "switch to prj folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "run unit tests"
+          command: | 
+              echo "# go Hello Pokus unit tests!"
+
+  build_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "env setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Build"
+          command: | 
+              echo "# go Build Hello Pokus !"
+
+  e2e_test_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "E2e tests"
+          command: | 
+              echo "# go Hello Pokus e2e tests!"
+
+  run_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env Setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Run Pokus Hello"
+          command: | 
+              go run .
+
+  publish_hello_pokus_gomod:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+      GOPKG_AUTH_SECRET_USER: << pipeline.parameters.gopkg_auth_secret_user >>
+      GOPKG_AUTH_SECRET_PWD: << pipeline.parameters.gopkg_auth_secret_pwd >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env Setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+              cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Publish Golang Module to gopkg.io"
+          command: | 
+              echo "# Publish go Module!"
+  docker_build_hello_pokus:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      # - shell: /bin/sh -leo pipefail
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "Env Setup"
+          command: |
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project folder"
+          command: |
+                  cd ${POKUS_PRJ_DIR}
+      - run:
+          name: "Build Hello Pokus Docker Image"
+          command: | 
+              echo "# Build Hello Pokus Docker Image !"
+              export OCI_REG_HOST=<< parameters.oci_gun_registry >>
+              export OCI_IMG_ORG=<< parameters.oci_gun_org >>
+              export OCI_IMG_PRJ=<< parameters.oci_gun_project >>
+              export OCI_IMG_TAG=<< parameters.oci_gun_tag >>
+              export OCI_IMG_FULL_GUN=${OCI_REG_HOST}/${OCI_IMG_ORG}/${OCI_IMG_PRJ}:${OCI_IMG_TAG}
+              echo " Will docker build [${OCI_IMG_FULL_GUN}]"
+
+  docker_push_hello_pokus:
+    docker:
+      - image: cimg/go:$POKUS_GO_VERSION
+        auth:
+          username: $DOCKERHUB_AUTH_SECRET_USER
+          password: $DOCKERHUB_AUTH_SECRET_PWD  # context / project UI env-var reference
+    environment:
+      BASH_ENV: /etc/profile
+      POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+      DOCKERHUB_AUTH_SECRET_USER: << pipeline.parameters.dockerhub_auth_secret_user >>
+      DOCKERHUB_AUTH_SECRET_PWD: << pipeline.parameters.dockerhub_auth_secret_pwd >>
+    steps:
+      - checkout
+      - run:
+          name: "Docker Push Pokus Hello Container Image"
+          command: | 
+              echo "# Publish Hello Pokus Docker Image !"
+              export OCI_REG_HOST=<< parameters.oci_gun_registry >>
+              export OCI_IMG_ORG=<< parameters.oci_gun_org >>
+              export OCI_IMG_PRJ=<< parameters.oci_gun_project >>
+              export OCI_IMG_TAG=<< parameters.oci_gun_tag >>
+              export OCI_IMG_FULL_GUN=${OCI_REG_HOST}/${OCI_IMG_ORG}/${OCI_IMG_PRJ}:${OCI_IMG_TAG}
+              echo " Will docker push [${OCI_IMG_FULL_GUN}]"
+
+workflows:
+  hello_pokus_gomod_ci:
+    jobs:
+      - unit_test_hello_pokus:
+      - build_hello_pokus:
+          requires:
+            - unit_test_hello_pokus
+      - e2e_test_hello_pokus:
+          requires:
+            - build_hello_pokus
+      - run_hello_pokus:
+          requires:
+            - e2e_test_hello_pokus
+      - approve_publish_gomod: # <<< A job that will require manual approval in the CircleCI web application.
+          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+          requires:
+            - e2e_test_hello_pokus
+      - publish_hello_pokus_gomod:
+          requires:
+            - approve_publish_gomod
+
+  hello_pokus_containers_ci:
+    when: << pipeline.parameters.dockerize_me >> 
+    jobs:
+      - docker_build_hello_pokus:
+          oci_gun_registry: docker.io
+          oci_gun_org: pokusio.io
+          oci_gun_project: go-hello-pokus
+          oci_gun_tag: 0.0.1
+      - approve_docker_push: # <<< A job that will require manual approval in the CircleCI web application.
+          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
+          requires:
+            - docker_build_hello_pokus
+      - docker_push_hello_pokus:
+          oci_gun_registry: docker.io
+          oci_gun_org: pokusio.io
+          oci_gun_project: go-hello-pokus
+          oci_gun_tag: 0.0.1
+          requires:
+            - approve_docker_push
