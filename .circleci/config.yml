@@ -79,7 +79,7 @@ workflows:
   hello_pokus_gomod_ci:
     when: << pipeline.parameters.dockerize_me >> 
     jobs:
-      - unit_test_hello_pokus:
+      - unit_test_hello_pokus
       - build_hello_pokus:
           requires:
             - unit_test_hello_pokus
