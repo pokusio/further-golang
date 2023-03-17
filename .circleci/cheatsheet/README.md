@@ -15,25 +15,26 @@ export GIT_SERVICE_PROVIDER="gh"
 export GIT_SERVICE_USER_OR_ORG_OR_GRP="pokusio"
 export GIT_SERVICE_PRJ_NAME="further-golang"
 export CCI_PROJ_SLUG="${GIT_SERVICE_PROVIDER}/${GIT_SERVICE_USER_OR_ORG_OR_GRP}/${GIT_SERVICE_PRJ_NAME}"
-
+export POKUS_PRJ_FOLER="./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
+export DOCKERIZE_ME=true
 # ---
 # Trigger the pipeline for the last
 # commit on a given git branch :
 curl -X POST \
   --header "Circle-Token: ${MY_CIRCLE_TOKEN}" \
   --header 'content-type: application/json' \
-  -d '{
-        "branch":"feature/first-step",
-        "parameters": {
-            "dockerize_me": false,
-            "pokus_go_version": "1.18.3",
-            "project_folder": "./myspecialdir",
-            "gopkg_auth_secret_user": "pokus",
-            "gopkg_auth_secret_pwd": "pokus",
-            "dockerhub_auth_secret_user": "pokus",
-            "dockerhub_auth_secret_pwd": "pokus"
+  -d "{
+        \"branch\":\"feature/first-step\",
+        \"parameters\": {
+            \"dockerize_me\": ${DOCKERIZE_ME},
+            \"pokus_go_version\": \"1.18.3\",
+            \"project_folder\": \"${POKUS_PRJ_FOLER}\",
+            \"gopkg_auth_secret_user\": \"pokus\",
+            \"gopkg_auth_secret_pwd\": \"pokus\",
+            \"dockerhub_auth_secret_user\": \"pokus\",
+            \"dockerhub_auth_secret_pwd\": \"pokus\"
         }
-    }' \
+    }" \
   --url https://circleci.com/api/v2/project/${CCI_PROJ_SLUG}/pipeline
 
 # ---

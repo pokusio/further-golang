@@ -80,34 +80,6 @@ jobs:
           command: | 
               echo "# go Build Hello Pokus !"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   e2e_test_hello_pokus:
     # <<: *pokus-jobs-common
     docker:
@@ -184,33 +156,6 @@ jobs:
           name: "Publish Golang Module to gopkg.io"
           command: | 
               echo "# Publish go Module!"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   docker_build_hello_pokus:
     # <<: *pokus-jobs-common
