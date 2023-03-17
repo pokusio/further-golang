@@ -31,7 +31,7 @@ jobs:
     docker:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
     environment:
-      BASH_ENV: /etc/profile
+      BASH_ENV: ~/.profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
@@ -55,8 +55,8 @@ jobs:
     docker:
       - image: "cimg/go:<<pipeline.parameters.pokus_go_version>>"
     environment:
-      BASH_ENV: /etc/profile
-      POKUS_PRJ_DIR: "<<pipeline.parameters.project_folder>>"
+      BASH_ENV: ~/.profile
+      POKUS_PRJ_DIR: <<pipeline.parameters.project_folder>>
     steps:
       # <<: *pokus-common-steps
       - run:
@@ -88,7 +88,7 @@ jobs:
       - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
       # - shell: /bin/sh -leo pipefail
     environment:
-      BASH_ENV: /etc/profile
+      BASH_ENV: ~/.profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
     steps:
       # <<: *pokus-common-steps
@@ -130,7 +130,7 @@ jobs:
         #   username: $DOCKERHUB_AUTH_SECRET_USER
         #   password: $DOCKERHUB_AUTH_SECRET_PWD  # context / project UI env-var reference
     environment:
-      BASH_ENV: /etc/profile
+      BASH_ENV: ~/.profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
       DOCKERHUB_AUTH_SECRET_USER: << pipeline.parameters.dockerhub_auth_secret_user >>
       DOCKERHUB_AUTH_SECRET_PWD: << pipeline.parameters.dockerhub_auth_secret_pwd >>
