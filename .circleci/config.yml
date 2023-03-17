@@ -73,11 +73,3 @@ jobs:
         name: "Build"
         command: | 
             echo "# go Build Hello Pokus !"
-
-workflows:
-  hello_pokus_gomod_ci:
-    jobs:
-      - unit_test_hello_pokus:
-      - build_hello_pokus:
-          requires:
-            - unit_test_hello_pokus
