@@ -4,7 +4,7 @@ version: "2.1"
 parameters:
   dockerize_me:
     type: boolean
-    default: false
+    default: true
   pokus_go_version:
     type: string
     default: "1.18.3"
@@ -76,6 +76,7 @@ jobs:
 
 workflows:
   version: 2
+  when: << pipeline.parameters.dockerize_me >> 
   hello_pokus_gomod_ci:
     jobs:
       - unit_test_hello_pokus
