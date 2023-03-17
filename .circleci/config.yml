@@ -64,9 +64,9 @@ jobs:
               echo "# go Hello Pokus unit tests!"
   build_hello_pokus:
     # <<: *pokus-jobs-common
-    docker:
-      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
-      # - shell: /bin/sh -leo pipefail
+    executor:
+      name: cimg/go:<< pipeline.parameters.pokus_go_version >>
+      shell: /bin/sh -leo pipefail
     environment:
       BASH_ENV: /etc/profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
