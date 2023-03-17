@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "215651bd-8cb5-4471-8fbf-ca5847e3f10c",
+		"name": "Trigger CircleCI Pipeline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26407417"
+	},
+	"item": [
+		{
+			"name": "Trigger Pipeline",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Circle-Token",
+						"value": "{{MY_CIRCLE_CI_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"branch\": \"feature/first-step\",\r\n  \"parameters\": {\r\n    \"dockerize_me\": true,\r\n    \"pokus_go_version\": \"1.18.3\",\r\n    \"project_folder\": \"./steps/go.dev/doc/tutorial/getting-started/hello-pokus\",\r\n    \"gopkg_auth_secret_user\": \"pokus\",\r\n    \"gopkg_auth_secret_pwd\": \"pokus\",\r\n    \"dockerhub_auth_secret_user\": \"pokus\",\r\n    \"dockerhub_auth_secret_pwd\": \"pokus\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://circleci.com/api/v2/project/gh/pokusio/further-golang/pipeline",
+					"protocol": "https",
+					"host": [
+						"circleci",
+						"com"
+					],
+					"path": [
+						"api",
+						"v2",
+						"project",
+						"gh/pokusio/further-golang",
+						"pipeline"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Trigger Pipeline",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Circle-Token",
+								"value": "{{MY_CIRCLE_CI_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"branch\": \"feature/first-step\",\r\n  \"parameters\": {\r\n    \"dockerize_me\": true,\r\n    \"pokus_go_version\": \"1.18.3\",\r\n    \"project_folder\": \"./steps/go.dev/doc/tutorial/getting-started/hello-pokus\",\r\n    \"gopkg_auth_secret_user\": \"pokus\",\r\n    \"gopkg_auth_secret_pwd\": \"pokus\",\r\n    \"dockerhub_auth_secret_user\": \"pokus\",\r\n    \"dockerhub_auth_secret_pwd\": \"pokus\"\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "https://circleci.com/api/v2/project/gh/pokusio/further-golang/pipeline",
+							"protocol": "https",
+							"host": [
+								"circleci",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"project",
+								"gh/pokusio/further-golang",
+								"pipeline"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	]
+}
