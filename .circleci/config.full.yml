@@ -197,7 +197,7 @@ jobs:
 
   docker_push_hello_pokus:
     docker:
-      - image: cimg/go:$POKUS_GO_VERSION
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
         auth:
           username: $DOCKERHUB_AUTH_SECRET_USER
           password: $DOCKERHUB_AUTH_SECRET_PWD  # context / project UI env-var reference

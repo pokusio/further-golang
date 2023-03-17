@@ -47,6 +47,7 @@ jobs:
           name: "switch to prj folder"
           command: |
               cd ${POKUS_PRJ_DIR}
+              pwd
       - run:
           name: "run unit tests"
           command: | 
@@ -73,6 +74,7 @@ jobs:
           name: "Switch project folder"
           command: |
               cd ${POKUS_PRJ_DIR}
+              pwd
       - run:
           name: "Build"
           command: | 
@@ -105,7 +107,8 @@ jobs:
       - run:
           name: "Switch project folder"
           command: |
-                  cd ${POKUS_PRJ_DIR}
+              cd ${POKUS_PRJ_DIR}
+              pwd
       - run:
           name: "Build Hello Pokus Docker Image"
           command: | 
@@ -129,7 +132,7 @@ jobs:
       oci_gun_tag:
         type: string
     docker:
-      - image: cimg/go:$POKUS_GO_VERSION
+      - image: cimg/go:<< pipeline.parameters.pokus_go_version >>
         # auth:
         #   username: $DOCKERHUB_AUTH_SECRET_USER
         #   password: $DOCKERHUB_AUTH_SECRET_PWD  # context / project UI env-var reference
