@@ -56,11 +56,37 @@ See https://pkg.go.dev/rsc.io/quote ?
 
 Alright, now, we are going to use a new golang dependency in our code. As example, We will use a new golang package in our golang source code, this one : https://pkg.go.dev/rsc.io/quote
 
-To do that, two steps : 
-* Add an import command in your source code : `import "rsc.io/quote"`
+To do that, three steps : 
+* update source code : 
+  * Add an import command in your source code : `import "rsc.io/quote"`
+  * make use of a first Golang Function of the `rsc.io/quote` project, the `Go()` Function, which displays a Go proverb
 * Run the `go mod tidy` command : this will download and install that dependency in the golang project.
+* Run the `go run .` command to run the golang `hello-pokus` application.
 
+After that, I did the same thing, adding usage for all Functions of the `rsc.io/quote` Golang package : 
 
+```Golang
+package main
+
+import "fmt"
+
+import "rsc.io/quote"
+
+func main() {
+	fmt.Println("Hello, Pokus!")
+	fmt.Println("Here is the quote of the day (Go returns a Go proverb.) : ")
+	fmt.Println(quote.Go())
+	
+	fmt.Println("Here is an example usage of another 'rsc.io/quote' package function (Glass returns a useful phrase for world travelers.) : ")
+	fmt.Println(quote.Glass())
+	
+	fmt.Println("Here is an example usage of another 'rsc.io/quote' package function (Hello returns a greeting.) : ")
+	fmt.Println(quote.Hello())
+	
+	fmt.Println("Here is an example usage of another 'rsc.io/quote' package function (Opt returns an optimization truth.) : ")
+	fmt.Println(quote.Opt())
+}
+```
 
 ## Point in docs
 
