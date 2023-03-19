@@ -54,6 +54,11 @@ GOSUMDB, GOPRIVATE, and GONOSUMDB.
 
 See https://pkg.go.dev/rsc.io/quote ?
 
+Alright, now, we are going to use a new golang dependency in our code. As example, We will use a new golang package in our golang source code, this one : https://pkg.go.dev/rsc.io/quote
+
+To do that, two steps : 
+* Add an import command in your source code : `import "rsc.io/quote"`
+* Run the `go mod tidy` command : this will download and install that dependency in the golang project.
 
 
 
