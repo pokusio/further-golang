@@ -126,6 +126,11 @@ jobs:
           command: |
               cd ${POKUS_PRJ_DIR}
       - run:
+          name: "Resolve golang dependencies"
+          command: | 
+              cd ${POKUS_PRJ_DIR}
+              go mod tidy
+      - run:
           name: "Run Pokus Hello"
           command: | 
               cd ${POKUS_PRJ_DIR}
