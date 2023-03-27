@@ -8,9 +8,18 @@ parameters:
   pokus_go_version:
     type: string
     default: "1.18.3"
+  # --
+  # Set to true, means you can execute the module, because the source code has an entry point
+  has_golang_entrypoint:
+    type: boolean
+    default
+  project_dependencies_folder:
+    type: string
+    default: "./steps/go.dev/doc/tutorial/create-go-modules/pokus-greetings"
   project_folder:
     type: string
     default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
+    # default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
   gopkg_auth_secret_user:
     type: string
     default: "pokus"
@@ -33,6 +42,7 @@ jobs:
     environment:
       BASH_ENV: /home/circleci/.profile
       POKUS_PRJ_DIR: << pipeline.parameters.project_folder >>
+      POKUS_PRJ_DEPENDENCY_DIR: << pipeline.parameters.project_dependencies_folder >>
     steps:
       # <<: *pokus-common-steps
       - run:
@@ -53,6 +63,34 @@ jobs:
           command: | 
               echo "# go Hello Pokus unit tests!"
 
+  build_hello_pokus_dependencies:
+    # <<: *pokus-jobs-common
+    docker:
+      - image: "cimg/go:<<pipeline.parameters.pokus_go_version>>"
+    environment:
+      BASH_ENV: /home/circleci/.profile
+      POKUS_PRJ_DIR: <<pipeline.parameters.project_folder>>
+      POKUS_PRJ_DEPENDENCY_DIR: << pipeline.parameters.project_dependencies_folder >>
+    steps:
+      # <<: *pokus-common-steps
+      - run:
+          name: "env setup"
+          command: |
+              mkdir -p /home/circleci/
+              touch "$BASH_ENV"
+              echo 'export PATH="$GOPATH"/bin:"$PATH"' >> "$BASH_ENV"
+              echo 'export GIT_SHA1="$CIRCLE_SHA1"' >> "$BASH_ENV"
+      - checkout
+      - run:
+          name: "Switch project dependency folder"
+          command: |
+              cd ${POKUS_PRJ_DEPENDENCY_DIR}
+              pwd
+      - run:
+          name: "Build"
+          command: | 
+              echo "# go Build Pokus Greetings !"
+
   build_hello_pokus:
     # <<: *pokus-jobs-common
     docker:
@@ -60,6 +98,7 @@ jobs:
     environment:
       BASH_ENV: /home/circleci/.profile
       POKUS_PRJ_DIR: <<pipeline.parameters.project_folder>>
+      POKUS_PRJ_DEPENDENCY_DIR: << pipeline.parameters.project_dependencies_folder >>
     steps:
       # <<: *pokus-common-steps
       - run:
@@ -136,6 +175,9 @@ jobs:
               cd ${POKUS_PRJ_DIR}
               go run .
 
+  # ---
+  # Published as a Golang package, the  
+  # executable "pokusio.io/hello_pokus" Go module
   publish_hello_pokus_gomod:
     # <<: *pokus-jobs-common
     docker:

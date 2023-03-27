@@ -1,0 +1,7 @@
+# Pokus Greetings !
+
+The best reusable golang module on Github, because it's french-made!
+
+This Golang module does not contain an appliation entrypoint : 
+* Its purpose is to be used as a "library" 
+* As a set of reusables Golang functions, top be used in any Golang Appl ,your are developing.

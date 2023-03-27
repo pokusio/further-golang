@@ -4,7 +4,7 @@
 mkdir hello-pokus
 cd hello-pokus/
 
-go mod init pokusio.io/hello-pokus
+go mod init pokusio.io/hello_pokus
 
 
 cat <<EOF > ./hello-pokus.go

@@ -88,6 +88,8 @@ func main() {
 }
 ```
 
-## Point in docs
 
-https://go.dev/doc/tutorial/getting-started
+
+## Points in docs
+
+* https://go.dev/doc/tutorial/getting-started
