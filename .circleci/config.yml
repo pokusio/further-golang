@@ -8,11 +8,6 @@ parameters:
   pokus_go_version:
     type: string
     default: "1.18.3"
-  # --
-  # Set to true, means you can execute the module, because the source code has an entry point
-  has_golang_entrypoint:
-    type: boolean
-    default
   project_dependencies_folder:
     type: string
     default: "./steps/go.dev/doc/tutorial/create-go-modules/pokus-greetings"
@@ -20,6 +15,11 @@ parameters:
     type: string
     default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
     # default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
+  
+  # --- 
+  # gopkg_auth_secret_* are credentials to 
+  # be able to publish to [https://gopkg.in] see [https://labix.org/gopkg.in]
+  # e.g. https://gopkg.in/yaml.v3
   gopkg_auth_secret_user:
     type: string
     default: "pokus"
