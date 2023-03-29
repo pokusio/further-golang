@@ -16,7 +16,7 @@ import (
 func GetPokusGreetings(name string)  (string, error) {
     // If no name was given, return an error with a message.
     if name == "" {
-        return name, errors.New("An empty name was provided, indeed here is the name parameter value : [" + name + "]")
+        return name, errors.New("An empty name was provided, indeed here is the name parameter value : '" + name + "'")
     }
     // Get a random format
     pokusRandomFormat := getPokusGreetingsFormat()
@@ -25,6 +25,39 @@ func GetPokusGreetings(name string)  (string, error) {
     // if the provided name is not empty, then we return the message, and 
     return message, nil
 }
+
+
+// GetPokusGreetings returns a greeting for the named person.
+func GetPokusGreetingsForThose(names []string)  (map[string]string, error) {
+
+    // --- --- -
+    // --- The map to return
+    greetingsMessagesMapToReturn := make(map[string]string)
+
+    // --- --- -
+    // --- 
+    for _, name := range names {
+        
+        greetingsMessage, error :=  GetPokusGreetings(name)
+        if (error != nil) {
+            return nil, error
+        }
+        greetingsMessagesMapToReturn[name] = greetingsMessage
+    }
+    
+    fmt.Println(" - - - ")
+    fmt.Println(" - After getting the greetings message for each")
+    fmt.Println(" - name, and it into the map to return, here is ")
+    fmt.Println(" - the content of the [greetingsMessagesMapToReturn]")
+    for k, v := range greetingsMessagesMapToReturn {
+        fmt.Println("key is : " + k)
+        fmt.Println("value is : " + v)
+    }
+    
+    // if the provided name is not empty, then we return the message, and 
+    return greetingsMessagesMapToReturn, nil
+}
+
 
 /**
  * Note that getPokusGreetingsFormat starts with a lowercase 

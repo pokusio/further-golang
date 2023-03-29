@@ -20,6 +20,7 @@ parameters:
   # gopkg_auth_secret_* are credentials to 
   # be able to publish to [https://gopkg.in] see [https://labix.org/gopkg.in]
   # e.g. https://gopkg.in/yaml.v3
+  # see also https://github.com/niemeyer/gopkg
   gopkg_auth_secret_user:
     type: string
     default: "pokus"

@@ -27,7 +27,24 @@ func main() {
 	fmt.Println(quote.Opt())
 	
 	// Usage of our "pokusio.io/pokus_greetings" Golang Module : 
-	SendPokusGreetings () 
+	// SendPokusGreetings () 
+	thoseNames := []string{
+		"Pierre",
+		"Jean",
+		"Matthieu",
+		"Marc",
+	};
+	SendPokusGreetingsFor(thoseNames)
+	// --- 
+	/**/
+	thoseOtherNames := []string{
+		"D'Artagnan",
+		"Portos",
+		"",
+		"Aramis",
+		"Trouville",
+	};
+	SendPokusGreetingsFor(thoseOtherNames)
 }
 
 func SendPokusGreetings () {
@@ -63,3 +80,26 @@ func SendPokusGreetings () {
 	
 }
 
+func SendPokusGreetingsFor (names []string) {
+	// --- 
+    // Set properties of the predefined Logger, including
+    // the log entry prefix and a flag to disable printing
+    // the time, source file, and line number.
+    log.SetPrefix("[pokus] - : ")
+    // log.SetFlags(0)
+	log.SetFlags(log.Ltime)
+	log.SetFlags(log.LstdFlags)
+	
+	// Get a greeting message and print it.
+	greetingsMessages, perhapsError := pokus_greetings.GetPokusGreetingsForThose(names)
+
+	if perhapsError != nil { // https://go.dev/doc/tutorial/handle-errors
+		// log.Output(1,"There has been an error using [pokus_greetings]")
+		log.Fatal(perhapsError)
+	}
+
+	for _, oneGreetingsMsg := range greetingsMessages {
+		fmt.Println(oneGreetingsMsg)
+	}
+	// fmt.Println(message) // if perhapsError is nil , then we print the message
+}
