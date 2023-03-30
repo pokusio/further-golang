@@ -37,8 +37,6 @@ func TestGetPokusGreetingsForEmptyName(t *testing.T) {
 	
 	if (potentialError != nil) {
 		t.Fatalf(`GetPokusGreetings(testedName) = %q, %v, is not nil, but was expected to, see %#q, nil`, result, potentialError, want)
-	} else {
-
 	}
 	
 }
