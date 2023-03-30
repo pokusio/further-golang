@@ -49,6 +49,7 @@ func GetPokusGreetingsForThose(names []string)  (map[string]string, error) {
     fmt.Println(" - After getting the greetings message for each")
     fmt.Println(" - name, and it into the map to return, here is ")
     fmt.Println(" - the content of the [greetingsMessagesMapToReturn]")
+
     for k, v := range greetingsMessagesMapToReturn {
         fmt.Println("key is : " + k)
         fmt.Println("value is : " + v)
@@ -89,6 +90,6 @@ func getPokusGreetingsFormat() (string) {
  * startup, after global variables have been initialized.
  */
 func init() {
-    fmt.Print("Oh wow!! Ok, if Golang comiler spots a function named 'init' inside a package, it executes that init function automatically at execution startup, after global variables have been initialized.")
+    fmt.Println("Oh wow!! Ok, if Golang comiler spots a function named 'init' inside a package, it executes that init function automatically at execution startup, after global variables have been initialized.")
     rand.Seed(time.Now().UnixNano())
 }

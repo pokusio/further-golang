@@ -60,10 +60,17 @@ jobs:
               cd ${POKUS_PRJ_DIR}
               pwd
       - run:
-          name: "run unit tests"
+          name: "Run unit tests for main module"
           command: | 
               echo "# go Hello Pokus unit tests!"
-
+              go test -v
+      - run:
+          name: "Run unit tests for dependencies module"
+          command: | 
+              cd ${POKUS_PRJ_DEPENDENCY_DIR}
+              echo "# go Hello Pokus unit tests!"
+              go test -v
+              
   build_hello_pokus_dependencies:
     # <<: *pokus-jobs-common
     docker:

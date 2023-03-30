@@ -36,7 +36,9 @@ func main() {
 	};
 	SendPokusGreetingsFor(thoseNames)
 	// --- 
-	/**/
+	// fmt.
+	stringFormattingVeerbsUsageExamples("Tryphon")
+	/*
 	thoseOtherNames := []string{
 		"D'Artagnan",
 		"Portos",
@@ -45,8 +47,17 @@ func main() {
 		"Trouville",
 	};
 	SendPokusGreetingsFor(thoseOtherNames)
+	*/
 }
-
+func stringFormattingVeerbsUsageExamples(uneCertaineValeur any) {
+    fmt.Printf("%s\n", "hello") // prints hello
+    fmt.Printf("%q\n", "hello") // prints "hello"
+    fmt.Printf("%s\n", "hello\n;") // prints hello
+//; \n is not escaped
+    fmt.Printf("%q\n", "hello\n;") // prints "hello\n;" \n is escaped here
+	
+	fmt.Printf(`Let's see what this gives in stdout = %q, %s, want match for %#q, nil`, uneCertaineValeur, "deux", "trois")
+}
 func SendPokusGreetings () {
     // Set properties of the predefined Logger, including
     // the log entry prefix and a flag to disable printing
