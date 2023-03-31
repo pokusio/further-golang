@@ -15,6 +15,7 @@ parameters:
     type: string
     default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
     # default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
+    # default: "./steps/go.dev/doc/tutorial/getting-started/hello-pokus"
   
   # --- 
   # gopkg_auth_secret_* are credentials to 
@@ -62,12 +63,17 @@ jobs:
       - run:
           name: "Run unit tests for main module"
           command: | 
+              cd ${POKUS_PRJ_DIR}
+              echo "POKUS_PRJ_DIR=[${POKUS_PRJ_DIR}]"
+              pwd
               echo "# go Hello Pokus unit tests!"
               go test -v
       - run:
           name: "Run unit tests for dependencies module"
           command: | 
               cd ${POKUS_PRJ_DEPENDENCY_DIR}
+              echo "POKUS_PRJ_DEPENDENCY_DIR=[${POKUS_PRJ_DEPENDENCY_DIR}]"
+              pwd
               echo "# go Hello Pokus unit tests!"
               go test -v
               
